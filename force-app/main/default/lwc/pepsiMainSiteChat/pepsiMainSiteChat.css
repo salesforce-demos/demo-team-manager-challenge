@@ -1,0 +1,258 @@
+:host {
+  --chat-header-height: 42px;
+  --chat-footer-default-height: 77px;
+}
+
+.chatbot-container {
+  block-size: 100%;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.22);
+  background-color: #FFF;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chat-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  block-size: var(--chat-header-height);
+  inline-size: 100%;
+  padding-inline: 16px;
+}
+
+.bot-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bot-image {
+  block-size: 26px;
+  inline-size: auto;
+}
+
+.bot-name {
+  color: #181818;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.chat-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-actions img {
+  inline-size: 17px; 
+  block-size: auto;
+  cursor: pointer;
+}
+
+.chat-body {
+  position: relative;
+  background: #F8F8F8;
+  block-size: calc(100% - var(--chat-header-height));
+  inline-size: 100%;
+  overflow: hidden;
+  z-index: 10;
+  border-radius: 0 0 8px 8px;
+}
+
+.chat-messages-container {
+  position: relative;
+  overflow: hidden;
+  inline-size: 100%;
+  min-block-size: 228px;
+  block-size: calc(100% - var(--chat-footer-default-height));
+}
+
+.chats {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 0 16px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chats::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-system-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 15px;
+  color: #000;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 16px;
+  width: 100%;
+  transition: transform 0.4s ease;
+}
+
+.footer img {
+  width: 24px;
+  height: auto;
+  cursor: pointer;
+}
+
+.input-container {
+  position: relative;
+  height: fit-content;
+  padding-block: 4px;
+  padding-inline: 16px;
+  border-radius: 36px;
+  inline-size: 100%;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 4px 20px 0px #0000001F;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+
+.input-container textarea {
+  width: 100%;
+  padding-inline: 28px;
+  padding-block: 4px;
+  outline: none;
+  background-color: transparent;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  resize: none;
+  border: none;
+  cursor: text;
+  display: block;
+  min-height: 28px;
+  max-height: 120px; /* Limits to ~6 lines */
+  overflow-y: auto;
+}
+
+.input-container textarea::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-input-placeholder {
+  color: #5C5C5C;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.input-container .add-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  block-size: 16px;
+  inline-size: auto;
+  pointer-events: none;
+}
+
+.input-container .voice-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  block-size: 16px;
+  inline-size: auto;
+  pointer-events: none;
+}
+
+.footer-note {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  inline-size: 100%;
+  padding-inline: 16px;
+}
+
+.footer-note img {
+  block-size: 10px;
+  inline-size: auto;
+}
+
+/* Agent Loader */
+.chat__loader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 8px;
+  margin-block: 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.chat__loader .chat__loader__spinner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #E5E5E5;
+  padding: 12px 16px;
+  border-radius: 10px 10px 10px 0;
+  animation: pulseTyping 1.4s infinite;
+}
+
+.chat__loader .chat__loader__spinner::before,
+.chat__loader .chat__loader__spinner::after {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #28458E;
+  animation: pulseTyping 1.4s infinite;
+}
+
+.chat__loader .chat__loader__spinner::after {
+  animation-delay: 0.7s;
+}
+
+@keyframes pulseTyping {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add animation for incoming messages */
+.chat-messages-container c-pepsi-main-site-chat-item {
+  animation: fadeIn 0.3s ease-out;
+  display: block;
+}

@@ -1,0 +1,61 @@
+<template>
+  <div class="chatbot-container">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="bot-info">
+        <img if:true={chatConfigInfo.agentImageURL} class="bot-image" src={chatConfigInfo.agentImageURL} alt="pepsi" />
+        <span if:true={chatConfigInfo.botName} class="bot-name">{chatConfigInfo.agentName}</span>
+      </div>
+      <div class="chat-actions">
+        <img src={threeDotsIcon} alt="more" />
+        <img src={splitPaneIcon} alt="split" />
+        <img src={dropdownIcon} alt="close" onclick={handleCloseChat} />
+      </div>
+    </div>
+
+    <!-- Chat container -->
+    <div class="chat-body">
+      <div class="chat-messages-container">
+        <div class="chats" data-id="chatContainer">
+          <template if:true={chatConfigInfo.startFromBottom}>
+            <div class="start-from-bottom"></div>
+          </template>
+          <!-- <div class="chat-system-message">
+            <p>{startChatTimeText}</p>
+          </div> -->
+          <template for:each={chatConfigInfo.messagesFilteredByDate} for:item="timestamp" for:index="indext">
+            <template for:each={timestamp.messages} for:item="message" for:index="msgIndex">
+              <template lwc:if={message.messageShown}>
+                <div key={message.id}>
+                  <!-- Messages -->
+                  <c-pepsi-main-site-chat-item message={message} onselectoption={updateOptionSelected}
+                    chat-config-info={chatConfigInfo}></c-pepsi-main-site-chat-item>
+                </div>
+              </template>
+            </template>
+          </template>
+
+          <!-- Loader -->
+          <div class="chat__loader" if:true={botIsThinking}>
+            <div class="chat__loader__spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer" data-id="footer">
+        <div class="input-container" id="inputContainer">
+          <textarea id="autoGrow" data-id="autoGrow" rows="1" placeholder=""
+            onfocus={handleChatFocus}>{currentTyping}</textarea>
+            <!-- Plus in front of textare and Waveform icon at the end of textarea and these icons should stay float top even when textarea is multiline -->
+          <img class="add-icon" src={plusIcon} alt="plus" /> 
+          <img class="voice-icon" src={waveformIcon} alt="waveform" />
+        </div>
+        <!-- This should be always at the bottom of footer -->
+        <div class="footer-note">
+          <img src={agentforceFooter} alt="agentforce" />
+        </div>
+      </footer>
+    </div>
+  </div>
+</template>

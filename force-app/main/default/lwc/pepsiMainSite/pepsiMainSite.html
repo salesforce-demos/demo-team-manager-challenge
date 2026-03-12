@@ -1,0 +1,40 @@
+<template>
+  <div class="main-site">
+    <img src={preCarouselSite} />
+    <div class="carousel">
+      <template for:each={computedSlides} for:item="slide" for:index="index">
+        <div key={slide.id} class={slide.slideClasses}>
+          <div class="carousel-banner-image">
+            <img alt={slide.title} src={slide.image}>
+          </div>
+          <div class="carousel-card">
+            <div class="carousel-card-title">{slide.title}</div>
+            <div class="carousel-card-description">{slide.description}</div>
+            <div class="carousel-card-button">{slide.buttonText}</div>
+          </div>
+        </div>
+      </template>
+      <div class="carousel-controls">
+        <div class="carousel-dots">
+          <template for:each={computedSlides} for:item="slide" for:index="index">
+            <button key={slide.id} class={slide.dotClasses} data-index={index} onclick={goToSlide} aria-label={slide.title}></button>
+          </template>
+        </div>
+        <div class="carousel-buttons">
+          <div class="carousel-prev" onclick={previousSlide} aria-label="Previous slide"></div>
+          <div class="carousel-next" onclick={nextSlide} aria-label="Next slide"></div>
+        </div>
+      </div>
+    </div>
+    <img src={postCarouselSite} />
+  </div>
+
+  <div class="main__button">
+    <img data-show-chat={showChat} onclick={handleShowChat} src={chatIcon} />
+  </div>
+
+  <!-- Chat -->
+  <div class="main__chat" data-show={showChat}>
+    <c-pepsi-main-site-chat onclosechat={handleShowChat}></c-pepsi-main-site-chat>
+  </div>
+</template>

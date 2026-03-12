@@ -1,0 +1,54 @@
+<template>
+  <div class={messageContainer}>
+    <template if:true={isAgent}>
+      <img if:true={chatConfigInfo.botImageURL} class="bot-image" src={chatConfigInfo.botImageURL} alt="header-chat" />
+    </template>
+    <div class="message-content">
+      <div class={message.messageClass} data-has-component={hasComponent}>
+        <!-- Component type message -->
+        <template lwc:if={message.component}>
+          <c-agent-builder-chat-dynamic-component
+            component={message.component}></c-agent-builder-chat-dynamic-component>
+        </template>
+
+        <template lwc:if={message.imageURL}>
+          <img onload={renderedCallback} src={message.imageURL} />
+        </template>
+        <p lwc:if={message.text}>
+          <lightning-formatted-rich-text value={message.text}>
+          </lightning-formatted-rich-text>
+        </p>
+      </div>
+      <p class="timestamp" if:false={message.isInfoMsg}>
+        <lightning-formatted-rich-text value={timestamp}>
+        </lightning-formatted-rich-text>
+      </p>
+    </div>
+  </div>
+  <!-- Message Options -->
+  <template lwc:if={message.hasOptions}>
+    <template lwc:if={message.isImageSelection}>
+      <div class="action-message image-selection-container you">
+        <template for:each={message.options} for:item="optionItem" for:index="index">
+          <div class={optionItem.optionClass} key={optionItem.order} data-name={index} onclick={selectOption}>
+            <div class="option-container">
+              <img src={optionItem.imageURL} />
+              <div class="right-container">
+                <span>{optionItem.text}</span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+    <template lwc:else>
+      <div class="action-message text-selection-container you">
+        <template for:each={message.options} for:item="optionItem" for:index="index">
+          <div class={optionItem.optionClass} key={optionItem.id} data-name={index} onclick={selectOption}>
+            <span>{optionItem.text}</span>
+          </div>
+        </template>
+      </div>
+    </template>
+  </template>
+</template>
