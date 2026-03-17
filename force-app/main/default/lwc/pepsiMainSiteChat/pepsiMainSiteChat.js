@@ -161,6 +161,7 @@ export default class PepsiMainSiteChat extends LightningElement {
         this.scrollChat(5);
     }
 
+    @api
     sendMessage() {
         if (this.todayChatCounter < 0) {
             const todayMessages = this.chatConfigInfo.messagesFilteredByDate[this.todayIndex].messages;
